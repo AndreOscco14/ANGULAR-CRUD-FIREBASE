@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { HeroeModel } from 'src/app/models/heroe.model';
+import { HeroesService } from 'src/app/services/heroes.service';
 
 @Component({
   selector: 'app-heroe',
@@ -7,4 +10,23 @@ import { Component } from '@angular/core';
 })
 export class HeroeComponent {
 
+  heroe= new HeroeModel();
+
+
+  constructor( private heroesService: HeroesService ){
+  }
+
+  guardar( form: NgForm){
+
+    if(form.invalid) {
+      console.log('Formulario no valido');
+      return;
+    }
+
+    this.heroesService.crearHeroe( this.heroe).subscribe( resp => {
+      console.log(resp);
+    })
+
+
+  }
 }
