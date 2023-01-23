@@ -10,12 +10,7 @@ export class HeroesService {
 
   private url = 'https://loginapp-5a9bf-default-rtdb.firebaseio.com';
 
-
-  constructor( 
-    private http: HttpClient
-   ) {
-
-    }
+  constructor( private http: HttpClient  ) {  }
 
   crearHeroe( heroe: HeroeModel) {
     return this.http.post(`${this.url}/heroes.json`, heroe)
@@ -25,5 +20,14 @@ export class HeroesService {
         }))
   }
  
-  // SIGUE 220 ;)
+  actualizarHeroe( heroe: HeroeModel) {
+    const heroeTemp = {
+     ...heroe
+    };
+    delete heroeTemp.id;
+
+    return this.http.put(`${this.url}/heroes/${heroe.id}.json`, heroeTemp);
+
+  }
+
   }
